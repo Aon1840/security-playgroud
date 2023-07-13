@@ -9,6 +9,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.tasks.Task
+import com.google.android.play.core.integrity.IntegrityManager
+import com.google.android.play.core.integrity.IntegrityManagerFactory
+import com.google.android.play.core.integrity.IntegrityTokenRequest
+import com.google.android.play.core.integrity.IntegrityTokenResponse
 import com.huawei.hms.api.ConnectionResult
 import com.huawei.hms.api.HuaweiApiAvailability
 import com.huawei.hms.common.ApiException
@@ -18,6 +23,7 @@ import com.huawei.hms.support.api.safetydetect.SafetyDetectStatusCodes
 import org.json.JSONException
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import kotlin.math.floor
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         tvGMS.text = "Is GMS: ${isGMSAvailable(this)}"
         Log.d("AON", isHMSAvailable(this).toString())
         Log.d("AON", isGMSAvailable(this).toString())
+        invokeSysIntegrity()
+        getToken()
     }
 
     private fun isHMSAvailable(context: Context): Boolean {
@@ -100,5 +108,35 @@ class MainActivity : AppCompatActivity() {
 //                fg_button_sys_integrity_go.setBackgroundResource(R.drawable.btn_round_yellow)
 //                fg_button_sys_integrity_go.setText(R.string.rerun)
             }
+    }
+
+    private fun getToken() {
+        val nonce = generateNonce()
+        // Create an instance of a manager.
+        val integrityManager: IntegrityManager = IntegrityManagerFactory.create(applicationContext)
+
+        // Request the integrity token by providing a nonce.
+        val integrityTokenResponse: Task<IntegrityTokenResponse> =
+            integrityManager.requestIntegrityToken(
+                IntegrityTokenRequest.builder()
+                    .setNonce(nonce)
+                    .build()
+            )
+        integrityTokenResponse.addOnSuccessListener { response: IntegrityTokenResponse ->
+            val integrityToken = response.token()
+        }
+        integrityTokenResponse.addOnFailureListener { e: Exception ->
+            val error = e.message
+        }
+    }
+
+    private fun generateNonce(): String {
+        val length = 50
+        var nonce = ""
+        val allowed = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+        for (i in 0 until length) {
+            nonce += allowed[floor(Math.random() * allowed.length).toInt()].toString()
+        }
+        return nonce
     }
 }

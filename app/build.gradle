@@ -33,7 +33,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.huawei.hms:hwid:4.0.0.300'
+    implementation 'com.huawei.hms:hwid:6.9.0.301'
     implementation 'com.google.android.gms:play-services-base:17.1.0'
     implementation 'com.sealwu.jsontokotlin:library:3.7.4'
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1"

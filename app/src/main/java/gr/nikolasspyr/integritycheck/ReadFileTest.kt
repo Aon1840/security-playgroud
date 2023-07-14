@@ -1,4 +1,4 @@
-package com.example.poc_plugin_templete
+package gr.nikolasspyr.integritycheck
 
 import java.io.File
 import java.io.FileWriter

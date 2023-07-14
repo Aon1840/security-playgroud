@@ -1,7 +1,5 @@
-package com.example.poc_plugin_templete
+package gr.nikolasspyr.integritycheck
 
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject

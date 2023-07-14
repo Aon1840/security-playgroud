@@ -1,4 +1,4 @@
-package com.example.poc_plugin_templete
+package gr.nikolasspyr.integritycheck
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

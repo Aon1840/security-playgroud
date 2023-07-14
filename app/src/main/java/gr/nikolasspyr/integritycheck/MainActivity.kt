@@ -1,4 +1,4 @@
-package com.example.poc_plugin_templete
+package gr.nikolasspyr.integritycheck
 
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.poc_plugin_templete.R
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.tasks.Task
 import com.google.android.play.core.integrity.IntegrityManager
